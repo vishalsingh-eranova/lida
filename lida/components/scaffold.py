@@ -45,6 +45,8 @@ chart = plot(data) # data already contains the data to be plotted. Always includ
 
             template = \
                 f"""
+import matplotlib
+matplotlib.use("Agg")
 import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt

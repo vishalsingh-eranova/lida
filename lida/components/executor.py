@@ -159,12 +159,12 @@ class ChartExecutor:
                         buf = io.BytesIO()
                         plt.box(False)
                         plt.grid(color="lightgray", linestyle="dashed", zorder=-10)
-                        # try:
-                        #     plt.draw()
-                        #     # plt.tight_layout()
-                        # except AttributeError:
-                        #     print("Warning: tight_layout encountered an error. The layout may not be optimal.")
-                        #     pass
+                        try:
+                            # plt.draw()
+                            plt.tight_layout()
+                        except AttributeError:
+                            print("Warning: tight_layout encountered an error. The layout may not be optimal.")
+                            pass
 
                         plt.savefig(buf, format="png", dpi=100, pad_inches=0.2)
                         buf.seek(0)
@@ -245,8 +245,11 @@ class ChartExecutor:
                     chart = ex_locals["chart"]
 
                     if pio:
-                        chart_bytes = pio.to_image(chart, 'png')
-                        plot_data = base64.b64encode(chart_bytes).decode('utf-8')
+                        # chart_bytes = pio.to_image(chart, 'png')
+                        # plot_data = base64.b64encode(chart_bytes).decode('utf-8')
+                        
+                        # converting to JSON format to make it interactive visualization
+                        plot_data = chart.to_json()
 
                         charts.append(
                             ChartExecutorResponse(
